@@ -2,100 +2,142 @@ package com.example.Activity.controller;
 
 import com.example.Activity.entity.ExerciseSuggestion;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/exercises")
-@CrossOrigin(origins = "*") // Allow Angular to call without issues
+@CrossOrigin(origins = "*")
 public class ExerciseController {
 
-    private final Random random = new Random();
+    // Exercise database organized by categories
+    private enum ExerciseCategory {
+        WARMUP, COOLDOWN, WEIGHT_LOSS, MUSCLE_GAIN, FITNESS
+    }
 
-    private final List<String> warmupExercises = Arrays.asList(
-            "Jumping Jacks", "High Knees", "Jump Rope", "Arm Circles", "Side Shuffles"
-    );
-
-    private final List<String> workoutWeightLoss = Arrays.asList(
-            "Squats", "Push-ups", "Burpees", "Lunges", "Mountain climbers", "Dynamic Plank"
-    );
-
-    private final List<String> workoutMuscleGain = Arrays.asList(
-            "Weighted Squats", "Diamond Push-ups", "Pull-ups", "Shoulder Press", "Deadlifts", "Chair Dips"
-    );
-
-    private final List<String> workoutFitness = Arrays.asList(
-            "Crunches", "Plank", "Side Lunges", "Superman", "Step-ups", "Inverted Rows"
-    );
-
-    private final List<String> cooldownExercises = Arrays.asList(
-            "Quadriceps Stretch", "Arm Stretch", "Back Stretch", "Calf Stretch", "Deep Breathing"
+    private final Map<ExerciseCategory, List<String>> exerciseDatabase = Map.of(
+            ExerciseCategory.WARMUP, Arrays.asList(
+                    "Jumping Jacks", "High Knees", "Jump Rope", "Arm Circles", "Side Shuffles",
+                    "Butt Kicks", "Torso Twists", "Leg Swings", "Neck Rolls", "Ankle Rolls"
+            ),
+            ExerciseCategory.WEIGHT_LOSS, Arrays.asList(
+                    "Squats", "Push-ups", "Burpees", "Lunges", "Mountain Climbers",
+                    "Dynamic Plank", "Jump Squats", "Box Jumps", "Battle Ropes", "Kettlebell Swings"
+            ),
+            ExerciseCategory.MUSCLE_GAIN, Arrays.asList(
+                    "Weighted Squats", "Diamond Push-ups", "Pull-ups", "Shoulder Press",
+                    "Deadlifts", "Chair Dips", "Bench Press", "Bicep Curls", "Tricep Extensions", "Lat Pulldowns"
+            ),
+            ExerciseCategory.FITNESS, Arrays.asList(
+                    "Crunches", "Plank", "Side Lunges", "Superman", "Step-ups",
+                    "Inverted Rows", "Glute Bridges", "Bird Dogs", "Russian Twists", "Wall Sits"
+            ),
+            ExerciseCategory.COOLDOWN, Arrays.asList(
+                    "Quadriceps Stretch", "Arm Stretch", "Back Stretch", "Calf Stretch",
+                    "Deep Breathing", "Hamstring Stretch", "Hip Flexor Stretch", "Shoulder Stretch", "Child's Pose", "Cat-Cow"
+            )
     );
 
     @PostMapping("/generate")
-    public ExerciseSuggestion generateExercise(@RequestParam String goal,
-                                               @RequestParam String level,
-                                               @RequestParam int timeMinutes) {
+    public ExerciseSuggestion generateExercise(
+            @RequestParam String goal,
+            @RequestParam String level,
+            @RequestParam int timeMinutes) throws IllegalArgumentException {
 
-        List<String> warmup = pickRandomExercises(warmupExercises, 2);
-        List<String> workout = pickWorkoutExercises(goal, 4);
-        List<String> cooldown = pickRandomExercises(cooldownExercises, 2);
+        // Input validation
+        if (timeMinutes < 10 || timeMinutes > 120) {
+            throw new IllegalArgumentException("Session duration should be between 10-120 minutes");
+        }
 
-        String advice = generateAdvice(goal, level);
+        // Calculate exercise counts based on duration
+        int warmupCount = Math.max(2, timeMinutes / 15);
+        int workoutCount = Math.max(4, timeMinutes / 5);
+        int cooldownCount = Math.max(2, timeMinutes / 30);
+
+        // Get exercises
+        List<String> warmup = getExercises(ExerciseCategory.WARMUP, warmupCount);
+        List<String> workout = getWorkoutExercises(goal, workoutCount);
+        List<String> cooldown = getExercises(ExerciseCategory.COOLDOWN, cooldownCount);
+
+        // Generate personalized advice
+        String advice = generateAdvice(goal, level, timeMinutes);
 
         return new ExerciseSuggestion(warmup, workout, cooldown, advice);
     }
 
-    private List<String> pickRandomExercises(List<String> exercises, int count) {
-        List<String> shuffled = new ArrayList<>(exercises);
-        Collections.shuffle(shuffled);
-        return shuffled.subList(0, Math.min(count, shuffled.size()));
+    private List<String> getExercises(ExerciseCategory category, int count) {
+        List<String> exercises = new ArrayList<>(exerciseDatabase.get(category));
+        Collections.shuffle(exercises);
+        return exercises.subList(0, Math.min(count, exercises.size()));
     }
 
-    private List<String> pickWorkoutExercises(String goal, int count) {
-        List<String> selected;
-
+    private List<String> getWorkoutExercises(String goal, int count) {
+        ExerciseCategory category;
         switch (goal.toLowerCase()) {
             case "weight loss":
-                selected = workoutWeightLoss;
+                category = ExerciseCategory.WEIGHT_LOSS;
                 break;
             case "muscle gain":
-                selected = workoutMuscleGain;
+                category = ExerciseCategory.MUSCLE_GAIN;
                 break;
             case "fitness":
+                category = ExerciseCategory.FITNESS;
+                break;
             default:
-                selected = workoutFitness;
-                break;
+                throw new IllegalArgumentException("Invalid goal specified");
         }
-
-        return pickRandomExercises(selected, count);
+        return getExercises(category, count);
     }
 
-    private String generateAdvice(String goal, String level) {
-        String baseAdvice = "";
+    private String generateAdvice(String goal, String level, int duration) {
+        StringBuilder advice = new StringBuilder();
 
+        // Goal-specific advice
         switch (goal.toLowerCase()) {
             case "weight loss":
-                baseAdvice = "Maintain high intensity and limit rest periods.";
+                advice.append("For optimal fat burning, maintain a heart rate between 60-80% of your maximum. ");
+                advice.append("Circuit training with minimal rest (30-45s) between exercises works best. ");
                 break;
             case "muscle gain":
-                baseAdvice = "Focus on movement quality with appropriate weights.";
+                advice.append("Focus on progressive overload - aim for 3-4 sets of 8-12 reps per exercise. ");
+                advice.append("Rest 60-90s between sets for optimal muscle recovery. ");
                 break;
             case "fitness":
-                baseAdvice = "Work progressively to avoid injuries.";
+                advice.append("Mix strength and cardio exercises for balanced fitness. ");
+                advice.append("Focus on proper form to prevent injuries. ");
                 break;
         }
 
-        if (level.equalsIgnoreCase("beginner")) {
-            baseAdvice += " Take more breaks if needed.";
-        } else if (level.equalsIgnoreCase("advanced")) {
-            baseAdvice += " Add more challenging variations if possible.";
+        // Level-specific advice
+        switch (level.toLowerCase()) {
+            case "beginner":
+                advice.append("Start with 2-3 sessions per week. ");
+                advice.append("Use modified versions of exercises if needed (e.g., knee push-ups). ");
+                break;
+            case "intermediate":
+                advice.append("Aim for 3-5 sessions per week with varied intensity. ");
+                advice.append("Consider adding weights or resistance bands to increase difficulty. ");
+                break;
+            case "advanced":
+                advice.append("You can train 5-7 times per week with proper recovery. ");
+                advice.append("Incorporate supersets and drop sets for increased intensity. ");
+                break;
         }
 
-        return baseAdvice;
+        // Duration-specific advice
+        if (duration > 60) {
+            advice.append("For this long session, remember to stay hydrated and consider taking ");
+            advice.append("short breaks (1-2 minutes) every 20-30 minutes.");
+        }
+
+        return advice.toString();
+    }
+
+    @GetMapping("/categories")
+    public Map<String, List<String>> getExerciseCategories() {
+        Map<String, List<String>> result = new HashMap<>();
+        for (ExerciseCategory category : ExerciseCategory.values()) {
+            result.put(category.name(), exerciseDatabase.get(category));
+        }
+        return result;
     }
 }
