@@ -11,29 +11,29 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/api/exercises")
-@CrossOrigin(origins = "*") // autoriser Angular à appeler sans problème
+@CrossOrigin(origins = "*") // Allow Angular to call without issues
 public class ExerciseController {
 
     private final Random random = new Random();
 
     private final List<String> warmupExercises = Arrays.asList(
-            "Jumping Jacks", "Montées de genoux", "Corde à sauter", "Cercles de bras", "Pas chassés"
+            "Jumping Jacks", "High Knees", "Jump Rope", "Arm Circles", "Side Shuffles"
     );
 
     private final List<String> workoutWeightLoss = Arrays.asList(
-            "Squats", "Pompes", "Burpees", "Fentes", "Mountain climbers", "Planche dynamique"
+            "Squats", "Push-ups", "Burpees", "Lunges", "Mountain climbers", "Dynamic Plank"
     );
 
     private final List<String> workoutMuscleGain = Arrays.asList(
-            "Squats lestés", "Pompes diamant", "Tractions", "Développé militaire", "Soulevé de terre", "Dips sur chaise"
+            "Weighted Squats", "Diamond Push-ups", "Pull-ups", "Shoulder Press", "Deadlifts", "Chair Dips"
     );
 
     private final List<String> workoutFitness = Arrays.asList(
-            "Abdos crunch", "Gainage", "Fentes latérales", "Superman", "Step-ups", "Rowing inversé"
+            "Crunches", "Plank", "Side Lunges", "Superman", "Step-ups", "Inverted Rows"
     );
 
     private final List<String> cooldownExercises = Arrays.asList(
-            "Étirement des quadriceps", "Étirement des bras", "Étirement du dos", "Étirement des mollets", "Respiration profonde"
+            "Quadriceps Stretch", "Arm Stretch", "Back Stretch", "Calf Stretch", "Deep Breathing"
     );
 
     @PostMapping("/generate")
@@ -60,13 +60,13 @@ public class ExerciseController {
         List<String> selected;
 
         switch (goal.toLowerCase()) {
-            case "perte de poids":
+            case "weight loss":
                 selected = workoutWeightLoss;
                 break;
-            case "prise de masse":
+            case "muscle gain":
                 selected = workoutMuscleGain;
                 break;
-            case "remise en forme":
+            case "fitness":
             default:
                 selected = workoutFitness;
                 break;
@@ -79,21 +79,21 @@ public class ExerciseController {
         String baseAdvice = "";
 
         switch (goal.toLowerCase()) {
-            case "perte de poids":
-                baseAdvice = "Maintenez une intensité élevée et limitez les temps de repos.";
+            case "weight loss":
+                baseAdvice = "Maintain high intensity and limit rest periods.";
                 break;
-            case "prise de masse":
-                baseAdvice = "Concentrez-vous sur la qualité des mouvements avec des charges adaptées.";
+            case "muscle gain":
+                baseAdvice = "Focus on movement quality with appropriate weights.";
                 break;
-            case "remise en forme":
-                baseAdvice = "Travaillez progressivement pour éviter les blessures.";
+            case "fitness":
+                baseAdvice = "Work progressively to avoid injuries.";
                 break;
         }
 
-        if (level.equalsIgnoreCase("débutant")) {
-            baseAdvice += " Prenez plus de pauses si nécessaire.";
-        } else if (level.equalsIgnoreCase("avancé")) {
-            baseAdvice += " Ajoutez des variations plus difficiles si possible.";
+        if (level.equalsIgnoreCase("beginner")) {
+            baseAdvice += " Take more breaks if needed.";
+        } else if (level.equalsIgnoreCase("advanced")) {
+            baseAdvice += " Add more challenging variations if possible.";
         }
 
         return baseAdvice;

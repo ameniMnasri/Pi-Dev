@@ -28,14 +28,14 @@ duration: any;
 
   generate() {
     if (!this.goal || !this.level || this.timeMinutes <= 0) {
-      alert('Veuillez remplir tous les champs correctement.');
+      alert('Please fill in all fields correctly.');
       return;
     }
 
     this.exerciseService.generateExercises(this.goal, this.level, this.timeMinutes)
       .subscribe({
         next: (response) => this.suggestion = response,
-        error: (err) => console.error('Erreur lors de la génération', err)
+        error: (err) => console.error('Error during generation', err)
       });
   }
 }
