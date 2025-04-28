@@ -7,6 +7,8 @@ import { ListActivitiesComponent } from './componnents/front_office/activities/L
 import { AddEditActivitiesComponent } from './componnents/front_office/activities/AddEditActivities/AddEditActivities.component';
 import { StatisticsComponent } from './componnents/front_office/activities/Statistics/statistics.component';
 import { ExerciseGeneratorComponent } from './componnents/front_office/activities/exercise-generator/exercise-generator.component';
+import { AdmincrudComponent } from './componnents/back_office/admincrud/admincrud.component';
+
 const routes: Routes = [
     {path : '', component : HomeComponent},
     {path : 'Back', component : HeaderBackComponent},
@@ -17,6 +19,7 @@ const routes: Routes = [
     {path : 'add-edit/:id', component: AddEditActivitiesComponent}, 
     {path : 'activities/details/:id', component: AddEditActivitiesComponent},
     {path : 'exercise-generator', component: ExerciseGeneratorComponent},
+    {path : 'crudadmin', component: AdmincrudComponent},
 ];
 
 @NgModule({

@@ -10,6 +10,6 @@ export interface ActivityType {
      Level:  String;
      Rating: number;
      RatingDesc:  String;
-     activity: Activity
+     
 
 }

@@ -1,9 +1,9 @@
 package com.example.Activity.service;
 
-import com.example.Activity.Repository.ActivityRepository;
-import com.example.Activity.Repository.ActivityTypeRepository;
-import com.example.Activity.entity.Activity;
-import com.example.Activity.entity.ActivityType;
+import com.example.Activity.Repository.Activity.ActivityRepository;
+import com.example.Activity.Repository.Activity.ActivityTypeRepository;
+import com.example.Activity.entity.Activity.Activity;
+import com.example.Activity.entity.Activity.ActivityType;
 import com.opencsv.CSVReader;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;

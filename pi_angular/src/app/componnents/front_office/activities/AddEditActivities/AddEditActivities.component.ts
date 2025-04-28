@@ -21,7 +21,7 @@ export class AddEditActivitiesComponent  {
     Level: '',
     Rating: 0,
     RatingDesc: '',
-    activity: {} as Activity  // Initialisation avec un objet vide de type Activity
+    // Initialisation avec un objet vide de type Activity
 
   }};
   activityTypeId: number = 0; // ID du type d'activité à associer

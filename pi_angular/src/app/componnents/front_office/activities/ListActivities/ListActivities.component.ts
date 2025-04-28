@@ -77,7 +77,7 @@ export class ListActivitiesComponent implements OnInit {
   }
 
   loadActivityTypes(): void {
-    this.activityTypeService.getAllActivityTypes().subscribe({
+    this.activityService.getAllActivityTypes().subscribe({
       next: (data) => {
         this.activityTypes = data;
         console.log('Activity types loaded:', this.activityTypes);
