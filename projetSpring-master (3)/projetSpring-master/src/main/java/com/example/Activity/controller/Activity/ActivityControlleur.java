@@ -1,8 +1,8 @@
-package com.example.Activity.controller;
+package com.example.Activity.controller.Activity;
 
-import com.example.Activity.entity.Activity;
-import com.example.Activity.entity.ActivityType;
-import com.example.Activity.service.ActivityService;
+import com.example.Activity.entity.Activity.Activity;
+import com.example.Activity.entity.Activity.ActivityType;
+import com.example.Activity.service.Activity.ActivityService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/Activity")
+@CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class ActivityControlleur {
 
@@ -57,4 +58,14 @@ public class ActivityControlleur {
         activityService.deleteActivity(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Activity>> getActivitiesByUserId(@PathVariable Long userId) {
+        try {
+            List<Activity> activities = activityService.getActivitiesByUserId(userId);
+            return ResponseEntity.ok(activities);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

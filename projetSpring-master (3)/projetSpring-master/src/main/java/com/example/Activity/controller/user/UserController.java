@@ -1,13 +1,11 @@
-package com.esprit.project.controllers;
+package com.example.Activity.controller.user;
 
-import com.cloudinary.Cloudinary;
-import com.esprit.project.DTO.UserProfileDTO;
-import com.esprit.project.DTO.UserProfileUpdateDTO;
-import com.esprit.project.entities.User;
-import com.esprit.project.services.UserService;
+import com.example.Activity.DTO.UserProfileDTO;
+import com.example.Activity.DTO.UserProfileUpdateDTO;
+import com.example.Activity.entity.user.User;
+import com.example.Activity.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

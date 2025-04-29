@@ -1,4 +1,4 @@
-package com.esprit.project.entities;
+package com.example.Activity.entity.user;
 
 public enum VoteType {
     UPVOTE,

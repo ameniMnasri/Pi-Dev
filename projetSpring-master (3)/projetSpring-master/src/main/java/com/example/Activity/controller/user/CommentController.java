@@ -1,9 +1,10 @@
-package com.esprit.project.controllers;
+package com.example.Activity.controller.user;
 
-import com.esprit.project.DTO.CommentCreateDTO;
-import com.esprit.project.DTO.CommentDTO;
-import com.esprit.project.DTO.CommentUpdateDTO;
-import com.esprit.project.services.CommentService;
+
+import com.example.Activity.DTO.CommentCreateDTO;
+import com.example.Activity.DTO.CommentDTO;
+import com.example.Activity.DTO.CommentUpdateDTO;
+import com.example.Activity.service.user.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+;
 
 @RestController
 @RequestMapping("/api/comments")

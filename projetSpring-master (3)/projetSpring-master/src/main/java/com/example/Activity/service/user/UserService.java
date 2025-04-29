@@ -1,13 +1,13 @@
-package com.esprit.project.services;
+package com.example.Activity.service.user;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.esprit.project.DTO.RegisterDTO;
-import com.esprit.project.DTO.UserProfileDTO;
-import com.esprit.project.DTO.UserProfileUpdateDTO;
-import com.esprit.project.entities.Role;
-import com.esprit.project.entities.User;
-import com.esprit.project.repositories.UserRepository;
+import com.example.Activity.DTO.RegisterDTO;
+import com.example.Activity.DTO.UserProfileDTO;
+import com.example.Activity.DTO.UserProfileUpdateDTO;
+import com.example.Activity.Repository.user.UserRepository;
+import com.example.Activity.entity.user.Role;
+import com.example.Activity.entity.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

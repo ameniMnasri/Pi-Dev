@@ -1,4 +1,4 @@
-package com.esprit.project.exceptions;
+package com.example.Activity.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

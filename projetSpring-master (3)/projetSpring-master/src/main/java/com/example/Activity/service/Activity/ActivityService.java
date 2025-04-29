@@ -1,4 +1,4 @@
-package com.example.Activity.service;
+package com.example.Activity.service.Activity;
 
 import com.example.Activity.Repository.Activity.ActivityRepository;
 import com.example.Activity.Repository.Activity.ActivityTypeRepository;
@@ -111,5 +111,10 @@ private ActivityRepository activityRepository;
     Activity activity = getActivityById(id);
     activityRepository.delete(activity);
   }
+
+  public List<Activity> getActivitiesByUserId(Long userId) {
+    return activityRepository.findByUserId(userId);
+  }
+
 }
 

@@ -1,15 +1,16 @@
-package com.esprit.project.services;
+package com.example.Activity.service.user;
 
-import com.esprit.project.DTO.CommentCreateDTO;
-import com.esprit.project.DTO.CommentDTO;
-import com.esprit.project.DTO.CommentUpdateDTO;
-import com.esprit.project.entities.Comment;
-import com.esprit.project.entities.Post;
-import com.esprit.project.entities.User;
-import com.esprit.project.exceptions.ResourceNotFoundException;
-import com.esprit.project.repositories.CommentRepository;
-import com.esprit.project.repositories.PostRepository;
-import com.esprit.project.repositories.UserRepository;
+
+import com.example.Activity.DTO.CommentCreateDTO;
+import com.example.Activity.DTO.CommentDTO;
+import com.example.Activity.DTO.CommentUpdateDTO;
+import com.example.Activity.Repository.user.CommentRepository;
+import com.example.Activity.Repository.user.PostRepository;
+import com.example.Activity.Repository.user.UserRepository;
+import com.example.Activity.entity.user.Comment;
+import com.example.Activity.entity.user.Post;
+import com.example.Activity.entity.user.User;
+import com.example.Activity.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,9 @@ public class CommentService {
 
     @Transactional
     public CommentDTO createComment(CommentCreateDTO commentCreateDTO, String username) {
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByUsername (username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
         Post post = postRepository.findById(commentCreateDTO.getPostId())
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
 

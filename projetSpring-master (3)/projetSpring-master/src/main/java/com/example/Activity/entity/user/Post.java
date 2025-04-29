@@ -1,4 +1,4 @@
-package com.esprit.project.entities;
+package com.example.Activity.entity.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

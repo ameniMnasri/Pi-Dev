@@ -1,6 +1,7 @@
-package com.esprit.project.config;
+package com.example.Activity.config;
 
-import com.esprit.project.security.JwtAuthenticationFilter;
+
+import com.example.Activity.security.JwtAuthenticationFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
@@ -32,7 +34,7 @@ public class SecurityConfig {
         http
                 // Enable CORS and disable CSRF
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable )
 
                 // Set session management to stateless
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -45,7 +47,8 @@ public class SecurityConfig {
                                 "/api/auth/forgot-password",
                                 "/api/auth/reset-password",
                                 "/api/auth/validate-reset-token",
-                                "/oauth2/**"
+                                "/oauth2/**",
+                                "/api/**"
                         ).permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")

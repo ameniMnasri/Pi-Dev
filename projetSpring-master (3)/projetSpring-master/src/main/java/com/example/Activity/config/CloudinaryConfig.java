@@ -1,4 +1,4 @@
-package com.esprit.project.config;
+package com.example.Activity.config;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

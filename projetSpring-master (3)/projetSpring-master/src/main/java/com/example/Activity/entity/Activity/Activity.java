@@ -1,6 +1,6 @@
-package com.example.Activity.entity;
+package com.example.Activity.entity.Activity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.Activity.entity.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +26,9 @@ public class Activity {
 
     @OneToOne(cascade = CascadeType.ALL)
     private ActivityType activityType;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
 

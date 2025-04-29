@@ -1,20 +1,22 @@
-package com.esprit.project.controllers;
+package com.example.Activity.controller.user;
 
-import com.esprit.project.DTO.AuthResponseDTO;
-import com.esprit.project.DTO.LoginDTO;
-import com.esprit.project.DTO.RegisterDTO;
-import com.esprit.project.entities.User;
-import com.esprit.project.security.JwtUtil;
-import com.esprit.project.services.PasswordResetTokenService;
-import com.esprit.project.services.UserService;
+
+import com.example.Activity.DTO.AuthResponseDTO;
+import com.example.Activity.DTO.LoginDTO;
+import com.example.Activity.DTO.RegisterDTO;
+import com.example.Activity.entity.user.User;
+import com.example.Activity.security.JwtUtil;
+import com.example.Activity.service.user.PasswordResetTokenService;
+import com.example.Activity.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,5 +85,18 @@ public class AuthController {
         resetService.resetPassword(request.get("token"), request.get("newPassword"));
         return ResponseEntity.ok("Password reset successful");
     }
-
+    @GetMapping("/id")
+    // Example: Restricting access to users with 'USER' role
+    public ResponseEntity<Long> getUserIdByUsername(@RequestParam String username, Authentication authentication) {
+        String currentUsername = authentication.getName();  // Get username from token
+        if (currentUsername == null || !currentUsername.equals(username)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();  // Forbidden if the user doesn't match
+        }
+        User user = userService.findByUsername(username);
+        if (user != null) {
+            return ResponseEntity.ok(user.getId());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

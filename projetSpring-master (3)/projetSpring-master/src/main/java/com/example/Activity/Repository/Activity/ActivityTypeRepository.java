@@ -1,4 +1,4 @@
-package com.example.Activity.Repository;
+package com.example.Activity.Repository.Activity;
 
 import com.example.Activity.entity.Activity.ActivityType;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,9 +1,10 @@
-package com.esprit.project.repositories;
+package com.example.Activity.Repository.user;
 
-import com.esprit.project.entities.Comment;
-import com.esprit.project.entities.Post;
-import com.esprit.project.entities.User;
-import com.esprit.project.entities.Vote;
+
+import com.example.Activity.entity.user.Comment;
+import com.example.Activity.entity.user.Post;
+import com.example.Activity.entity.user.User;
+import com.example.Activity.entity.user.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

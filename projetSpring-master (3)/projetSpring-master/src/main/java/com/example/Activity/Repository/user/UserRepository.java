@@ -1,6 +1,6 @@
-package com.esprit.project.repositories;
+package com.example.Activity.Repository.user;
 
-import com.esprit.project.entities.User;
+import com.example.Activity.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

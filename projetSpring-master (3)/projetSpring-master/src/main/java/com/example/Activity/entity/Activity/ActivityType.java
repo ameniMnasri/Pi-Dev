@@ -1,5 +1,6 @@
-package com.example.Activity.entity;
+package com.example.Activity.entity.Activity;
 
+import com.example.Activity.entity.Activity.Activity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;

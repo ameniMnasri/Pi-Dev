@@ -1,4 +1,4 @@
-package com.example.Activity.entity;
+package com.example.Activity.entity.Activity;
 
 import java.util.List;
 

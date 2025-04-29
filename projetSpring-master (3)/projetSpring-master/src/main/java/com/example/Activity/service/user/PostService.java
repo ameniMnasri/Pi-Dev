@@ -1,12 +1,13 @@
-package com.esprit.project.services;
+package com.example.Activity.service.user;
 
-import com.esprit.project.DTO.PostCreateDTO;
-import com.esprit.project.DTO.PostResponseDTO;
-import com.esprit.project.DTO.PostUpdateDTO;
-import com.esprit.project.entities.Post;
-import com.esprit.project.entities.User;
-import com.esprit.project.repositories.PostRepository;
-import com.esprit.project.repositories.UserRepository;
+
+import com.example.Activity.DTO.PostCreateDTO;
+import com.example.Activity.DTO.PostResponseDTO;
+import com.example.Activity.DTO.PostUpdateDTO;
+import com.example.Activity.Repository.user.PostRepository;
+import com.example.Activity.Repository.user.UserRepository;
+import com.example.Activity.entity.user.Post;
+import com.example.Activity.entity.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
@@ -78,7 +79,7 @@ public class PostService { // Renamed from PostServiceImpl, no 'implements' clau
      *
      * @param postId The ID of the post to retrieve.
      * @return DTO representation of the post.
-     * @throws jakarta.persistence.EntityNotFoundException if post not found.
+     * @throws EntityNotFoundException if post not found.
      */
     @Transactional(readOnly = true)
     public PostResponseDTO getPostById(Long postId) {
@@ -95,7 +96,7 @@ public class PostService { // Renamed from PostServiceImpl, no 'implements' clau
      * @param postUpdateDTO DTO containing updated post details.
      * @param authentication The authentication object of the logged-in user (for permission check).
      * @return DTO representation of the updated post.
-     * @throws jakarta.persistence.EntityNotFoundException if post not found.
+     * @throws EntityNotFoundException if post not found.
      * @throws org.springframework.security.access.AccessDeniedException if the user is not authorized.
      */
     @Transactional
@@ -121,7 +122,7 @@ public class PostService { // Renamed from PostServiceImpl, no 'implements' clau
      *
      * @param postId The ID of the post to delete.
      * @param authentication The authentication object of the logged-in user (for permission check).
-     * @throws jakarta.persistence.EntityNotFoundException if post not found.
+     * @throws EntityNotFoundException if post not found.
      * @throws org.springframework.security.access.AccessDeniedException if the user is not authorized.
      */
     @Transactional

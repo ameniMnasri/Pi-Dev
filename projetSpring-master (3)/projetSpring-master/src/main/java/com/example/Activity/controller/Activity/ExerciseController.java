@@ -1,6 +1,6 @@
-package com.example.Activity.controller;
+package com.example.Activity.controller.Activity;
 
-import com.example.Activity.entity.ExerciseSuggestion;
+import com.example.Activity.entity.Activity.ExerciseSuggestion;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 

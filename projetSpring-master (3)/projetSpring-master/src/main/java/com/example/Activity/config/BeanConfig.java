@@ -1,4 +1,4 @@
-package com.esprit.project.config;
+package com.example.Activity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

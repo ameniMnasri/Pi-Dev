@@ -1,4 +1,4 @@
-package com.esprit.project.DTO;
+package com.example.Activity.DTO;
 
 import lombok.Data;
 import jakarta.validation.constraints.NotBlank;

@@ -1,9 +1,10 @@
-package com.esprit.project.controllers;
+package com.example.Activity.controller.user;
 
-import com.esprit.project.DTO.PostCreateDTO;
-import com.esprit.project.DTO.PostResponseDTO;
-import com.esprit.project.DTO.PostUpdateDTO;
-import com.esprit.project.services.PostService;
+
+import com.example.Activity.DTO.PostCreateDTO;
+import com.example.Activity.DTO.PostResponseDTO;
+import com.example.Activity.DTO.PostUpdateDTO;
+import com.example.Activity.service.user.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

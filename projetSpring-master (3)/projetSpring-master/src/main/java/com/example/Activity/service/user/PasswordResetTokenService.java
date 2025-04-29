@@ -1,9 +1,10 @@
-package com.esprit.project.services;
+package com.example.Activity.service.user;
 
-import com.esprit.project.entities.User;
-import com.esprit.project.entities.PasswordResetToken;
-import com.esprit.project.repositories.PasswordResetTokenRepository;
-import com.esprit.project.repositories.UserRepository;
+
+import com.example.Activity.Repository.user.PasswordResetTokenRepository;
+import com.example.Activity.Repository.user.UserRepository;
+import com.example.Activity.entity.user.PasswordResetToken;
+import com.example.Activity.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
