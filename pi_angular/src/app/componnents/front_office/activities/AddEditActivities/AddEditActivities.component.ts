@@ -11,19 +11,21 @@ import { ActivityService } from 'src/app/services/activities/Activity.service';
 })
 export class AddEditActivitiesComponent  {
 
-  activity: Activity = { actId: 0, title: '', activityDate: new Date(), reputation: 0, duration: 0,  activityType: {
-    actTypeId: 0,
-    title: '',             // Correspond à la propriété 'Title' en majuscule
-    description: '',
-    Type: '',
-    BodyPart: '',
-    Equipment: '',
-    Level: '',
-    Rating: 0,
-    RatingDesc: '',
-    // Initialisation avec un objet vide de type Activity
+  activity: Activity = {
+    actId: 0, title: '', activityDate: new Date(), reputation: 0, duration: 0, activityType: {
+      actTypeId: 0,
+      title: '', // Correspond à la propriété 'Title' en majuscule
+      description: '',
+      Type: '',
+      BodyPart: '',
+      Equipment: '',
+      Level: '',
+      Rating: 0,
+      RatingDesc: '',
+      // Initialisation avec un objet vide de type Activity
+    },
 
-  }};
+  };
   activityTypeId: number = 0; // ID du type d'activité à associer
   isEditMode: boolean = false; // Détecte si on est en mode modification
   isViewMode: boolean = false; // Détecte si on est en mode visualisation

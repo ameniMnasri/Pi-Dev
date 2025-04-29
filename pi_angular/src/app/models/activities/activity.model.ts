@@ -1,3 +1,4 @@
+import { User } from '../user/user.module';
 import { ActivityType } from './activityType.model';
 
 export interface Activity {
@@ -7,5 +8,6 @@ export interface Activity {
      reputation:number ;
      duration: number;
   activityType:  ActivityType;
+    user ?: Partial<User> ;
 
 }

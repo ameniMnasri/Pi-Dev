@@ -135,6 +135,16 @@ export class AuthService {
     return null;
   }
 
-
+ // New method to get user ID by current username
+ getUserIdByCurrentUsername(): Observable<number> {
+  const username = this.getCurrentUserUsername();
+  const token = this.getToken();  // Get the token
+  if (username && token) {
+    const headers = { Authorization: `Bearer ${token}` };  // Add the token to headers
+    return this.http.get<number>(`${this.apiUrl}/id?username=${username}`, { headers });
+  } else {
+    throw new Error('Username or Token is not available');
+  }
+}
 
 }

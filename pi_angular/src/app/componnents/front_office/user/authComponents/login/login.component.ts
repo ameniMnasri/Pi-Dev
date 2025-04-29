@@ -23,7 +23,7 @@ export class LoginComponent {
       (response: AuthResponseDTO) => {
         this.authService.saveToken(response.token);
 
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home']);
       },
       error => {
         this.errorMessage = 'Login failed! Check your credentials.';

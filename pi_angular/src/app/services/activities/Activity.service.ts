@@ -69,5 +69,8 @@ updateActivity(id: number, activityDetails: Activity): Observable<Activity> {
 deleteActivity(id: number): Observable<void> {
   return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
 }
+getActivitiesByUserId(userId: number): Observable<Activity[]> {
+  return this.http.get<Activity[]>(`http://localhost:9090/api/Activity/user/${userId}`);
+}
 
 }

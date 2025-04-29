@@ -5,6 +5,7 @@ import { ActivityType } from 'src/app/models/activities/activityType.model';
 import { ActivityService } from 'src/app/services/activities/Activity.service';
 import { NgForm } from '@angular/forms';
 import { ActivityTypeService } from 'src/app/services/activities/ActivityType.service';
+import { AuthService } from 'src/app/services/user/auth.service';
 
 declare var bootstrap: any;
 
@@ -41,17 +42,30 @@ export class ListActivitiesComponent implements OnInit {
   selectedActivityType: number | null = null;
   private modal: any;
   isLoading: boolean = false;
+  userId?: number ;
 
   constructor(
     private activityService: ActivityService,
     private activityTypeService: ActivityTypeService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
     this.loadActivities();
     this.loadActivityTypes();
+    console.log(this.authService.getCurrentUserUsername(),"Activity")
+    this.authService.getUserIdByCurrentUsername().subscribe({
+      next: (id) => {
+        this.userId = id;
+        console.log('User ID in Activity :', this.userId);
+  
+        // Now call the other methods that depend on userId
+       
+        }});
+  
+      
     // Initialiser la modale Bootstrap
     setTimeout(() => {
       const modalElement = document.getElementById('addActivityModal');
@@ -60,21 +74,33 @@ export class ListActivitiesComponent implements OnInit {
       }
     }, 0);
   }
-
   loadActivities(): void {
-    this.activityService.getAllActivities().subscribe({
-      next: (data) => {
-        this.activities = data;
-        this.filteredActivities = data;
-        this.updatePagination();
-        this.isLoading = false;
+    this.authService.getUserIdByCurrentUsername().subscribe({
+      next: (id) => {
+        this.userId = id;
+        console.log('User ID:', this.userId);
+  
+        // Now load activities for this specific user
+        this.activityService.getActivitiesByUserId(this.userId).subscribe({
+          next: (data) => {
+            this.activities = data;
+            this.filteredActivities = data;
+            this.updatePagination();
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error('Erreur lors du chargement des activités de l\'utilisateur', err);
+            this.isLoading = false;
+          }
+        });
       },
       error: (err) => {
-        console.error('Erreur lors du chargement des activités', err);
+        console.error('Erreur lors de la récupération de l\'ID utilisateur', err);
         this.isLoading = false;
       }
     });
   }
+  
 
   loadActivityTypes(): void {
     this.activityService.getAllActivityTypes().subscribe({
@@ -196,9 +222,12 @@ export class ListActivitiesComponent implements OnInit {
       activityDate: new Date(),
       reputation: 0,
       duration: 0,
-      activityType: {} as ActivityType
+      activityType: {} as ActivityType,
+      user: {id:this.userId }// Assurez-vous que userId est défini
+
     };
     this.selectedActivityType = null;
+    console.log(this.userId,"userId")
     
     // Ensure activity types are loaded
     if (this.activityTypes.length === 0) {
